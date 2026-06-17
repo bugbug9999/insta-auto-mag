@@ -1,0 +1,8 @@
+node_modules
+.git
+.uiux
+data/posts
+*.log
+out
+/tmp
+.DS_Store

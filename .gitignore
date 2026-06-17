@@ -1,0 +1,19 @@
+node_modules/
+data/posts/
+data/sources.json
+.env
+.env.local
+.env.*.local
+*.log
+out/
+.uiux/
+.DS_Store
+/tmp/
+.render_spec.json
+
+# dev/test artifacts
+_make_mag.js
+public/person_*.jpg
+
+# dev orchestration (BuildKit) — 앱 실행 불필요
+pipelines/

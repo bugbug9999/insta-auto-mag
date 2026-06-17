@@ -1,0 +1,39 @@
+{
+  "brand": "BZCF",
+  "defaultAccent": [
+    156,
+    206,
+    245
+  ],
+  "defaultTone": "magazine",
+  "tonePresets": [
+    {
+      "id": "magazine",
+      "name": "감성 매거진",
+      "description": "bizucafe 스타일, ~합니다체, 정제된 톤",
+      "promptSuffix": "톤: 감성 매거진. ~합니다체로 작성. 정제되고 차분한 뉴스레터 느낌. 도발적이되 냉정하게."
+    },
+    {
+      "id": "newsletter",
+      "name": "뉴스레터",
+      "description": "팩트 중심, 간결, 불릿 포인트",
+      "promptSuffix": "톤: 뉴스레터. 팩트 중심으로 간결하게. 불필요한 감성 배제. 숫자와 고유명사 적극 사용."
+    },
+    {
+      "id": "casual",
+      "name": "캐주얼",
+      "description": "~해요체, 친근하고 가벼운",
+      "promptSuffix": "톤: 캐주얼. ~해요체로 친근하게. 이모지 가끔 사용. 대화하듯 자연스럽게."
+    },
+    {
+      "id": "provocative",
+      "name": "자극적",
+      "description": "도발적 헤드라인, 강한 주장",
+      "promptSuffix": "톤: 자극적. 도발적이고 단정적으로. 강한 주장과 대비. 독자를 자극하는 헤드라인."
+    }
+  ],
+  "makeCardPath": "",
+  "exportPath": "",
+  "claudePath": "",
+  "theme": "editorial-dark"
+}
