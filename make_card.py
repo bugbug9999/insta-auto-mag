@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""bizucafe(BZCF/dy1) 스타일 캐러셀 카드 제너레이터.
+"""감성 매거진 스타일 캐러셀 카드 제너레이터.
 
 템플릿 3종:
   cover  — 인물/현장 사진 흑백처리 + 하단 다크 그라데이션 + 좌하단 굵은 헤드라인
@@ -35,7 +35,7 @@ WHITE = (255, 255, 255)
 SKY = (156, 206, 245)     # 소제목/강조 기본 (하늘색)
 LIME = (214, 245, 90)     # 본문 키워드 하이라이트 (연두)
 ORANGE = (224, 122, 63)   # 주제 브랜드색에 맞춰 교체 가능
-GOLD = (229, 180, 86)     # 우리 시그니처 포인트 (bzcf 라임·dy1 빨강과 구분되는 디테일)
+GOLD = (229, 180, 86)     # 시그니처 골드 포인트
 IVORY = (244, 241, 234)
 BLACK = (20, 20, 20)
 LIGHT_SUB = (85, 85, 85)
@@ -51,7 +51,7 @@ def font(size, idx=F_BOLD):
     return ImageFont.truetype(os.path.join(_FONT_DIR, fname), size)
 
 def load_photo(path, w, h, preserve_color=True, bw=False):
-    """사진을 w×h로 크롭. 기본 컬러 원본 유지(bzcf 실측 — 흑백은 아카이브 사진의 자연 흑백뿐).
+    """사진을 w×h로 크롭. 기본 컬러 원본 유지(레퍼런스 실측 — 흑백은 아카이브 사진의 자연 흑백뿐).
 
     bw=True일 때만 흑백+살짝 어둡게 (spec 슬라이드의 "bw": true 옵션)."""
     if path and os.path.exists(path):
@@ -202,8 +202,8 @@ def para_gap(line_factor, is_archive):
     return max(4, int(round(base * (line_factor - 1.0) / 0.4)))
 
 def body_geometry(theme):
-    """본문 사진카드 기하. 라이트=bzcf 어록형 실측(카드 0.88W×0.56H, y0.10 — 이건희 포스트 3장 동일),
-    다크=뉴스형은 dy1 해설형 골격(상단 풀블리드 사진 + 하단 텍스트 존, 2026-06-13)."""
+    """본문 사진카드 기하. 라이트=레퍼런스 어록형 실측(카드 0.88W×0.56H, y0.10 — 이건희 포스트 3장 동일),
+    다크=뉴스형은 레퍼런스 해설형 골격(상단 풀블리드 사진 + 하단 텍스트 존, 2026-06-13)."""
     if theme == "light":
         pw, ph = int(W * 0.86), int(H * 0.52)
         py = int(H * 0.10)
@@ -218,9 +218,9 @@ def body_geometry(theme):
 def body(subtitle, paragraphs, photo=None, brand="MAG", out="body.png",
          accent=SKY, hot=LIME, theme="dark", bw=False, line_spacing=None, source=None,
          subtitle_size=None, body_size=None, text_pos=None):
-    # theme은 이제 '레이아웃' — light=아카이브형(큰 사진카드+왼쪽 정렬), dark=뉴스형(dy1 해설형: 풀블리드+좌정렬).
+    # theme은 이제 '레이아웃' — light=아카이브형(큰 사진카드+왼쪽 정렬), dark=뉴스형(레퍼런스 해설형: 풀블리드+좌정렬).
     # 배경은 브랜드 다크로 통일 (유저 결정 2026-06-12: 흰 배경 금지).
-    # 타이포는 dy1 현행(2026-06-13): 형광 폐지, 소제목·강조 = 흰 볼드(+밑줄), 본문 = 소프트 화이트.
+    # 타이포는 레퍼런스 현행(2026-06-13): 형광 폐지, 소제목·강조 = 흰 볼드(+밑줄), 본문 = 소프트 화이트.
     is_archive = theme == "light"
     bg = NAVY
     subtitle_color = WHITE
@@ -241,7 +241,7 @@ def body(subtitle, paragraphs, photo=None, brand="MAG", out="body.png",
         subtitle_size=clamp_font_size(subtitle_size), body_size=clamp_font_size(body_size))
     LAST_RENDER_META["shrunk"] = shrunk
     LAST_RENDER_META["clipped"] = clipped
-    # dy1 현행: 전 레이아웃 왼쪽 정렬 (아카이브=사진 카드 왼쪽 모서리, 뉴스=좌우 70px 마진)
+    # 레퍼런스 현행: 전 레이아웃 왼쪽 정렬 (아카이브=사진 카드 왼쪽 모서리, 뉴스=좌우 70px 마진)
     align = "left"
     anchor_x = px if is_archive else 70
     y = py + ph + text_gap
@@ -289,7 +289,7 @@ def body(subtitle, paragraphs, photo=None, brand="MAG", out="body.png",
     return out
 
 def ending(headline, photo=None, brand="MAG", out="ending.png", accent=ORANGE, theme="dark", headline_pos=None):
-    # 배경은 브랜드 다크 통일. 타이포는 dy1 현행(2026-06-13): 흰 볼드 단일, 형광·오렌지 폐지.
+    # 배경은 브랜드 다크 통일. 타이포는 레퍼런스 현행(2026-06-13): 흰 볼드 단일, 형광·오렌지 폐지.
     is_archive = theme == "light"
     im = Image.new("RGB", (W, H), NAVY)
     d = ImageDraw.Draw(im)
@@ -353,7 +353,7 @@ def split_underline_spans(raw):
     return out or [line]
 
 def wrap_rich_text(d, line, size, max_width, base_idx=F_MED, accent_idx=None):
-    """완결 문장을 폭에 맞춰 단어 단위로 wrap (dy1 현행: 본문은 \\n 없이 자연 줄바꿈).
+    """완결 문장을 폭에 맞춰 단어 단위로 wrap (레퍼런스 현행: 본문은 \\n 없이 자연 줄바꿈).
     [강조] 마크업이 줄 경계에 걸리면 닫고 다음 줄에 다시 연다. _밑줄_은 줄마다 유지."""
     accent_idx = base_idx if accent_idx is None else accent_idx
     text = str(line or "")
@@ -426,7 +426,7 @@ def fit_cover_sizes(d, headline, kicker):
 def fit_body_sizes(d, subtitle, paragraphs, theme="dark", line_spacing=None,
                    subtitle_size=None, body_size=None):
     is_light = theme == "light"
-    # 아카이브는 카드가 커서(0.52H) 텍스트 존이 좁다 — 기본 폰트도 bzcf 실측 스케일로 한 단계 작게
+    # 아카이브는 카드가 커서(0.52H) 텍스트 존이 좁다 — 기본 폰트도 레퍼런스 실측 스케일로 한 단계 작게
     default_subtitle = 46 if is_light else 54
     default_body = 36 if is_light else 40
     # 간격 게이지는 폰트 크기에 영향을 주지 않는다(유저 2026-06-12) — 핏 계산은 기본 간격(1.4) 고정.

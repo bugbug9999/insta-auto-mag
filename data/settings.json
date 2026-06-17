@@ -1,5 +1,5 @@
 {
-  "brand": "BZCF",
+  "brand": "MAG",
   "defaultAccent": [
     156,
     206,
@@ -10,7 +10,7 @@
     {
       "id": "magazine",
       "name": "감성 매거진",
-      "description": "bizucafe 스타일, ~합니다체, 정제된 톤",
+      "description": "감성 매거진 스타일, ~합니다체, 정제된 톤",
       "promptSuffix": "톤: 감성 매거진. ~합니다체로 작성. 정제되고 차분한 뉴스레터 느낌. 도발적이되 냉정하게."
     },
     {
